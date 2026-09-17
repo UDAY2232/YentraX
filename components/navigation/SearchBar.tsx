@@ -56,7 +56,7 @@ export function SearchBar({ open, onOpenChange }: SearchBarProps) {
     e.preventDefault();
     if (!query.trim()) return;
     searchService.addRecentSearch(query.trim());
-    window.location.href = `/shop?q=${encodeURIComponent(query.trim())}`;
+    window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
   };
 
   const handleSuggestionClick = (s: SearchSuggestion) => {
@@ -67,7 +67,7 @@ export function SearchBar({ open, onOpenChange }: SearchBarProps) {
   const handleQuickSearch = (term: string) => {
     setQuery(term);
     searchService.addRecentSearch(term);
-    window.location.href = `/shop?q=${encodeURIComponent(term)}`;
+    window.location.href = `/search?q=${encodeURIComponent(term)}`;
   };
 
   return (

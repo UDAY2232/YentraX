@@ -24,7 +24,7 @@ export function Header() {
   const handleQuickSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!quickSearch.trim()) return;
-    window.location.href = `/shop?q=${encodeURIComponent(quickSearch.trim())}`;
+    window.location.href = `/search?q=${encodeURIComponent(quickSearch.trim())}`;
   };
 
   return (
@@ -75,37 +75,37 @@ export function Header() {
             <Search className="h-5 w-5" />
           </Button>
 
-          <a href="/wishlist" className="relative hidden sm:block">
-            <Button variant="ghost" size="icon" aria-label="Wishlist">
+          <Button variant="ghost" size="icon" className="relative hidden sm:flex" asChild>
+            <a href="/wishlist" aria-label="Wishlist">
               <Heart className="h-5 w-5" />
               {wishlistCount > 0 && (
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-destructive-foreground">
                   {wishlistCount}
                 </span>
               )}
-            </Button>
-          </a>
+            </a>
+          </Button>
 
-          <a href={user ? '/account' : '/login'}>
-            <Button variant="ghost" size="icon" aria-label="Account">
+          <Button variant="ghost" size="icon" asChild>
+            <a href={user ? '/account' : '/login'} aria-label="Account">
               <User className="h-5 w-5" />
-            </Button>
-          </a>
+            </a>
+          </Button>
 
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setCartOpen(true)}
             className="relative"
             aria-label="Cart"
           >
-            <Button variant="ghost" size="icon">
-              <ShoppingBag className="h-5 w-5" />
-            </Button>
+            <ShoppingBag className="h-5 w-5" />
             {totalItems > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
                 {totalItems}
               </span>
             )}
-          </button>
+          </Button>
         </div>
       </div>
 
