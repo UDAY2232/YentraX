@@ -6,8 +6,10 @@ import type { WishlistState } from '@/types/state';
 const STORAGE_KEY = 'makerhub-wishlist';
 
 interface WishlistContextValue extends WishlistState {
+  items: string[];
   toggle: (productId: string) => void;
   has: (productId: string) => boolean;
+  clear: () => void;
   count: number;
 }
 
@@ -49,10 +51,14 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     [productIds]
   );
 
+  const clear = React.useCallback(() => setProductIds([]), []);
+
   const value: WishlistContextValue = {
     productIds,
+    items: productIds,
     toggle,
     has,
+    clear,
     count: productIds.length,
   };
 

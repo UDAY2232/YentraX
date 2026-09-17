@@ -14,6 +14,7 @@ interface CartContextValue extends CartState {
   setCartOpen: (open: boolean) => void;
   totalItems: number;
   subtotal: number;
+  totalPrice: number;
 }
 
 const CartContext = React.createContext<CartContextValue | null>(null);
@@ -59,6 +60,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           name: product.name,
           image: product.image,
           price: product.price,
+          originalPrice: product.originalPrice,
+          brand: product.brand,
+          stock: product.stock,
           quantity,
           slug: product.slug,
         },
@@ -95,6 +99,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCartOpen,
     totalItems,
     subtotal,
+    totalPrice: subtotal,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

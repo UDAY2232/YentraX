@@ -6,7 +6,7 @@ import type { AuthState, AuthUser } from '@/types/state';
 const STORAGE_KEY = 'makerhub-auth';
 
 interface AuthContextValue extends AuthState {
-  login: (email: string, name?: string) => void;
+  login: (user: { email: string; name?: string; id?: string }, token?: string) => void;
   register: (email: string, name: string) => void;
   logout: () => void;
   setPendingCheckout: (pending: boolean) => void;
@@ -44,8 +44,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user, mounted]);
 
-  const login = React.useCallback((email: string, name?: string) => {
-    setUser({ id: crypto.randomUUID(), email, name: name || email.split('@')[0] });
+  const login = React.useCallback((loginUser: { email: string; name?: string; id?: string }, _token?: string) => {
+    setUser({ id: loginUser.id || crypto.randomUUID(), email: loginUser.email, name: loginUser.name || loginUser.email.split('@')[0] });
   }, []);
 
   const register = React.useCallback((email: string, name: string) => {

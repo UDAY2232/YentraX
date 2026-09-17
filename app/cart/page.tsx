@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useCart } from '@/store/cartStore';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/shared/EmptyState';
-import { ShoppingCart, Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
+import { Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CartPage() {
@@ -32,8 +32,8 @@ export default function CartPage() {
 
   const shipping = totalPrice > 500 ? 0 : 50;
   const discount = items.reduce((acc, item) => {
-    if (item.product.originalPrice) {
-      return acc + (item.product.originalPrice - item.product.price) * item.quantity;
+    if (item.originalPrice) {
+      return acc + (item.originalPrice - item.price) * item.quantity;
     }
     return acc;
   }, 0);
@@ -60,30 +60,30 @@ export default function CartPage() {
             
             <div className="divide-y">
               {items.map((item) => (
-                <div key={item.product.id} className="flex flex-col gap-4 p-4 md:grid md:grid-cols-12 md:items-center">
+                <div key={item.productId} className="flex flex-col gap-4 p-4 md:grid md:grid-cols-12 md:items-center">
                   <div className="col-span-6 flex items-start gap-4 md:items-center">
                     <div className="h-20 w-20 shrink-0 overflow-hidden rounded-md border bg-muted">
                       <img
-                        src={item.product.image}
-                        alt={item.product.name}
+                        src={item.image}
+                        alt={item.name}
                         className="h-full w-full object-cover"
                       />
                     </div>
                     <div>
-                      <Link href={`/product/${item.product.slug}`} className="line-clamp-2 font-semibold hover:text-primary">
-                        {item.product.name}
+                      <Link href={`/product/${item.slug}`} className="line-clamp-2 font-semibold hover:text-primary">
+                        {item.name}
                       </Link>
                       <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                        <span>{item.product.brand}</span>
+                        <span>{item.brand}</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="col-span-2 text-left md:text-center">
-                    <div className="font-semibold">₹{item.product.price.toLocaleString('en-IN')}</div>
-                    {item.product.originalPrice && (
+                    <div className="font-semibold">₹{item.price.toLocaleString('en-IN')}</div>
+                    {item.originalPrice && (
                       <div className="text-xs text-muted-foreground line-through">
-                        ₹{item.product.originalPrice.toLocaleString('en-IN')}
+                        ₹{item.originalPrice.toLocaleString('en-IN')}
                       </div>
                     )}
                   </div>
@@ -94,7 +94,7 @@ export default function CartPage() {
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 rounded-none"
-                        onClick={() => updateQuantity(item.product.id, Math.max(1, item.quantity - 1))}
+                        onClick={() => updateQuantity(item.productId, Math.max(1, item.quantity - 1))}
                       >
                         <Minus className="h-3 w-3" />
                       </Button>
@@ -105,8 +105,8 @@ export default function CartPage() {
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 rounded-none"
-                        onClick={() => updateQuantity(item.product.id, Math.min(item.product.stock, item.quantity + 1))}
-                        disabled={item.quantity >= item.product.stock}
+                        onClick={() => updateQuantity(item.productId, Math.min(item.stock, item.quantity + 1))}
+                        disabled={item.quantity >= item.stock}
                       >
                         <Plus className="h-3 w-3" />
                       </Button>
@@ -116,12 +116,12 @@ export default function CartPage() {
                   <div className="col-span-2 flex items-center justify-between md:justify-end">
                     <span className="font-bold md:hidden">Subtotal:</span>
                     <div className="flex items-center gap-4">
-                      <span className="font-bold">₹{(item.product.price * item.quantity).toLocaleString('en-IN')}</span>
+                      <span className="font-bold">₹{(item.price * item.quantity).toLocaleString('en-IN')}</span>
                       <Button
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 text-destructive hover:bg-destructive/10 hover:text-destructive"
-                        onClick={() => removeItem(item.product.id)}
+                        onClick={() => removeItem(item.productId)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

@@ -59,6 +59,14 @@ export type ProjectDifficulty = 'Beginner' | 'Intermediate' | 'Advanced';
 export interface ProjectComponent {
   name: string;
   slug: string;
+  quantity?: number;
+}
+
+export interface ProjectStep {
+  title: string;
+  description: string;
+  image?: string;
+  codeSnippet?: string;
 }
 
 export interface Project {
@@ -68,7 +76,11 @@ export interface Project {
   image: string;
   difficulty: ProjectDifficulty;
   description: string;
+  shortDescription: string;
   category: string;
   components: ProjectComponent[];
+  componentsCount: number;
   estimatedTime: string;
+  learningOutcomes?: string[];
+  steps?: ProjectStep[];
 }

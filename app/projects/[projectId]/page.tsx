@@ -4,7 +4,7 @@ import { mockProducts } from '@/data/mock/products';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Hammer, CheckCircle2, ShoppingCart } from 'lucide-react';
+import { Clock, Hammer, CircleCheck as CheckCircle2, ShoppingCart } from 'lucide-react';
 
 interface ProjectDetailPageProps {
   params: {
@@ -19,9 +19,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
     notFound();
   }
 
-  // Get products needed for this project
   const projectProducts = mockProducts.filter((p) => 
-    project.components.some((c) => c.productId === p.id)
+    project.components.some((c) => c.slug === p.slug)
   );
 
   return (
@@ -59,7 +58,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               
               <h3 className="mt-8 text-xl font-semibold">What you'll learn</h3>
               <ul className="mt-4 space-y-2">
-                {project.learningOutcomes?.map((outcome, i) => (
+                {project.learningOutcomes?.map((outcome: string, i: number) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-primary" />
                     <span>{outcome}</span>
@@ -117,7 +116,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {project.components.map((comp, i) => (
                 <div key={i} className="flex items-center justify-between border-b pb-3 last:border-0 last:pb-0">
                   <span className="text-sm font-medium">{comp.name}</span>
-                  <span className="text-sm text-muted-foreground">x{comp.quantity}</span>
+                  <span className="text-sm text-muted-foreground">x{comp.quantity ?? 1}</span>
                 </div>
               ))}
             </div>

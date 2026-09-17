@@ -4,7 +4,6 @@ import { useWishlist } from '@/store/wishlistStore';
 import { mockProducts } from '@/data/mock/products';
 import { ProductCard } from '@/components/product/ProductCard';
 import { EmptyState } from '@/components/shared/EmptyState';
-import { Heart } from 'lucide-react';
 import React from 'react';
 
 export default function WishlistPage() {

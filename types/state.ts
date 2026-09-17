@@ -3,6 +3,9 @@ export interface CartItem {
   name: string;
   image: string;
   price: number;
+  originalPrice?: number;
+  brand: string;
+  stock: number;
   quantity: number;
   slug: string;
 }

@@ -6,7 +6,7 @@ import { mockProducts } from '@/data/mock/products';
 import { ProductCard } from '@/components/product/ProductCard';
 import { FilterSidebar } from '@/components/shop/FilterSidebar';
 import { EmptyState } from '@/components/shared/EmptyState';
-import { Search, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export default function SearchPage() {
+function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [mounted, setMounted] = React.useState(false);
@@ -44,7 +44,7 @@ export default function SearchPage() {
           Search Results
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          {searchResults.length} results for "{query}"
+          {searchResults.length} results for &quot;{query}&quot;
         </p>
       </div>
 
@@ -52,7 +52,6 @@ export default function SearchPage() {
         <EmptyState
           title="No products found"
           description="Try searching for something else or explore our categories."
-          icon={Search}
           actionLabel="Go to Shop"
           onAction={() => window.location.href = '/shop'}
         />
@@ -114,5 +113,13 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <React.Suspense fallback={null}>
+      <SearchResults />
+    </React.Suspense>
   );
 }
