@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { MEGA_MENU_GROUPS } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 
@@ -32,14 +33,14 @@ export function ShopMegaMenu({ open, onClose }: ShopMegaMenuProps) {
               <ul className="space-y-1">
                 {group.items.map((item) => (
                   <li key={item.name}>
-                    <a
+                    <Link
                       href={item.href}
                       className="group flex items-center justify-between rounded-md px-2 py-1.5 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-accent-foreground"
                       role="menuitem"
                     >
                       {item.name}
                       <ArrowRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -50,12 +51,12 @@ export function ShopMegaMenu({ open, onClose }: ShopMegaMenuProps) {
           <span className="text-sm text-muted-foreground">
             Can&apos;t find what you need?
           </span>
-          <a
+          <Link
             href="/shop"
             className="text-sm font-semibold text-primary hover:underline"
           >
             Browse all products →
-          </a>
+          </Link>
         </div>
       </div>
     </div>

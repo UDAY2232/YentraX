@@ -1,14 +1,22 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
 import { ShopMegaMenu } from '@/components/navigation/ShopMegaMenu';
 import { cn } from '@/lib/utils';
 
 export function MainNavigation() {
+  const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
   const [megaMenuOpen, setMegaMenuOpen] = React.useState(false);
   const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
 
   const clearCloseTimer = () => {
     if (closeTimer.current) {
@@ -56,18 +64,20 @@ export function MainNavigation() {
             onFocus={() => handleFocus(item.label)}
             className="relative"
           >
-            <a
+            <Link
               href={item.href}
               className={cn(
                 'flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                hoveredItem === item.label
+                isActive(item.href)
                   ? 'text-primary'
-                  : 'text-foreground/80 hover:text-foreground'
+                  : hoveredItem === item.label
+                    ? 'text-primary'
+                    : 'text-foreground/80 hover:text-foreground'
               )}
-              aria-current={item.href === '/' ? 'page' : undefined}
+              aria-current={isActive(item.href) ? 'page' : undefined}
             >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

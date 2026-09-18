@@ -1,7 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { X } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, MEGA_MENU_GROUPS } from '@/lib/constants';
 import {
   Sheet,
@@ -15,6 +16,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from '@/components/ui/accordion';
+import { cn } from '@/lib/utils';
 
 interface MobileNavigationProps {
   open: boolean;
@@ -22,6 +24,13 @@ interface MobileNavigationProps {
 }
 
 export function MobileNavigation({ open, onOpenChange }: MobileNavigationProps) {
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(href + '/');
+  };
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-[300px] overflow-y-auto sm:w-[350px]">
@@ -48,12 +57,12 @@ export function MobileNavigation({ open, onOpenChange }: MobileNavigationProps) 
                               <ul className="space-y-1">
                                 {group.items.slice(0, 4).map((cat) => (
                                   <li key={cat.name}>
-                                    <a
+                                    <Link
                                       href={cat.href}
                                       className="block rounded px-2 py-1 text-sm text-foreground/80 hover:bg-accent"
                                     >
                                       {cat.name}
-                                    </a>
+                                    </Link>
                                   </li>
                                 ))}
                               </ul>
@@ -64,12 +73,15 @@ export function MobileNavigation({ open, onOpenChange }: MobileNavigationProps) 
                     </AccordionItem>
                   </Accordion>
                 ) : (
-                  <a
+                  <Link
                     href={item.href}
-                    className="block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-accent"
+                    className={cn(
+                      'block rounded-md px-3 py-2.5 text-base font-medium hover:bg-accent',
+                      isActive(item.href) ? 'text-primary bg-primary/10' : 'text-foreground'
+                    )}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 )}
               </li>
             ))}

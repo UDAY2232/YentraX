@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { Cpu, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
 import { SITE_NAME, SUPPORT_EMAIL, CONTACT_PHONE, FOOTER_LINKS } from '@/lib/constants';
 
@@ -20,14 +21,14 @@ export function Footer() {
       <div className="container-page py-12">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2 lg:col-span-2">
-            <a href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                 <Cpu className="h-5 w-5" />
               </div>
               <span className="text-xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-jakarta)' }}>
                 {SITE_NAME}
               </span>
-            </a>
+            </Link>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
               Your one-stop shop for robotics, electronics, IoT and STEM supplies. Build something amazing.
             </p>
@@ -49,7 +50,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               {FOOTER_LINKS.shop.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-foreground">{link.label}</a>
+                  <Link href={link.href} className="hover:text-foreground">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -60,7 +61,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               {FOOTER_LINKS.company.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-foreground">{link.label}</a>
+                  <Link href={link.href} className="hover:text-foreground">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -71,7 +72,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               {FOOTER_LINKS.help.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-foreground">{link.label}</a>
+                  <Link href={link.href} className="hover:text-foreground">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -82,7 +83,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               {FOOTER_LINKS.learn.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-foreground">{link.label}</a>
+                  <Link href={link.href} className="hover:text-foreground">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -90,7 +91,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               {FOOTER_LINKS.legal.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-foreground">{link.label}</a>
+                  <Link href={link.href} className="hover:text-foreground">{link.label}</Link>
                 </li>
               ))}
             </ul>
