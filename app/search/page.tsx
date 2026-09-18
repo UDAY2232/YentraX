@@ -81,7 +81,7 @@ function SearchResults() {
 
           {/* Sidebar */}
           <aside className="hidden w-full shrink-0 md:block md:w-64">
-            <FilterSidebar />
+            <FilterSidebar filters={{ categories: [], brands: [], priceRange: [0, 20000], inStock: false, minRating: 0 }} onChange={() => {}} brands={[]} />
           </aside>
 
           {/* Main Content */}
